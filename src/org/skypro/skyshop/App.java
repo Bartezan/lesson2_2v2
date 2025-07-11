@@ -12,28 +12,28 @@ public class App {
 
         ProductBasket basket=new ProductBasket();
 
-        basket.AddProductInBasket(apple);
-        basket.AddProductInBasket(banana);
-        basket.AddProductInBasket(kiwi);
-        basket.AddProductInBasket(apple);
-        basket.AddProductInBasket(kiwi);
-        basket.AddProductInBasket(kiwi);
+        basket.addProductInBasket(apple);
+        basket.addProductInBasket(banana);
+        basket.addProductInBasket(kiwi);
+        basket.addProductInBasket(apple);
+        basket.addProductInBasket(kiwi);
+        basket.addProductInBasket(kiwi);
 
-        basket.PrintBasket();
+        basket.printBasket();
 
-        System.out.println("Общая стоимость корзины: "+basket.GetBasketPrice());
+        System.out.println("Общая стоимость корзины: "+basket.getBasketPrice());
 
-        System.out.println("Банан присутствует в корзине: "+basket.FindForName("Банан"));
+        System.out.println("Банан присутствует в корзине: "+basket.findForName("Банан"));
 
-        System.out.println("Виноград присутствует в корзине: "+basket.FindForName("Виноград"));
+        System.out.println("Виноград присутствует в корзине: "+basket.findForName("Виноград"));
 
-        basket.ClearBusket();
+        basket.clearBusket();
 
-        basket.PrintBasket();
+        basket.printBasket();
 
-        System.out.println("Общая стоимость корзины: "+basket.GetBasketPrice());
+        System.out.println("Общая стоимость корзины: "+basket.getBasketPrice());
 
-        System.out.println("Банан присутствует в корзине: "+basket.FindForName("Банан"));
+        System.out.println("Банан присутствует в корзине: "+basket.findForName("Банан"));
 
 
     }

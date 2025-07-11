@@ -4,19 +4,18 @@ import org.skypro.skyshop.product.Product;
 
 public class ProductBasket {
 
-    Product[] products = new Product[5];
-    int productCount = 0;
+  private   Product[] products = new Product[5];
+  private   int productCount = 0;
 
-    public void AddProductInBasket(Product product) {
-        if (productCount < 5) {
-            products[productCount] = product;
-            productCount++;
+    public void addProductInBasket(Product product) {
+        if (productCount < products.length) {
+            products[productCount++] = product;
         } else {
             System.out.println("Карзина переполнена");
         }
     }
 
-    public int GetBasketPrice() {
+    public int getBasketPrice() {
         int sum = 0;
         for (int i = 0; i < productCount; i++) {
             sum = sum + products[i].getPrice();
@@ -24,28 +23,29 @@ public class ProductBasket {
         return sum;
     }
 
-    public void PrintBasket() {
+    public void printBasket() {
         if (productCount > 0) {
             for (int i = 0; i < productCount; i++) {
                 System.out.println((i + 1) + ": " + products[i].getName() + ": " + products[i].getPrice());
             }
-            System.out.println("Общая стоимость корзины: " + GetBasketPrice());
+            System.out.println("Общая стоимость корзины: " + getBasketPrice());
         } else {
             System.out.println("В корзине пусто");
         }
     }
 
-    public boolean FindForName(String name) {
+    public boolean findForName(String name) {
         boolean result = false;
         for (int i = 0; i < productCount; i++) {
             if (name.equals(products[i].getName())) {
                 result = true;
+                break;
             }
         }
         return result;
     }
 
-    public void ClearBusket() {
+    public void clearBusket() {
         for (int i = 0; i < productCount; i++) {
             products[i] = null;
         }

@@ -2,15 +2,14 @@ package org.skypro.skyshop;
 
 
 import org.skypro.skyshop.basket.ProductBasket;
-import org.skypro.skyshop.product.DiscountedPriduct;
-import org.skypro.skyshop.product.FixPriceProduct;
-import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.product.*;
 
 public class App {
     public static void main(String[] args) {
         SimpleProduct apple = new SimpleProduct("Яблоко", 12);
-        DiscountedPriduct banana = new DiscountedPriduct("Банан", 10, 50);
+        DiscountedProduct banana = new DiscountedProduct("Банан", 10, 50);
         FixPriceProduct kiwi = new FixPriceProduct("Киви");
+        Article appleArticle = new Article("Яблоко сорт Антоновка", "О вкусовых качествах данного сорта");
 
         ProductBasket basket = new ProductBasket();
 
@@ -37,5 +36,25 @@ public class App {
 
         System.out.println("Банан присутствует в корзине: " + basket.findForName("Банан"));
 
+        SearchEngine searchEngine1 = new SearchEngine(10);
+
+        searchEngine1.add(apple);
+        searchEngine1.add(apple);
+        searchEngine1.add(banana);
+        searchEngine1.add(kiwi);
+        searchEngine1.add(appleArticle);
+        searchEngine1.add(banana);
+        searchEngine1.add(kiwi);
+        searchEngine1.add(kiwi);
+        searchEngine1.add(appleArticle);
+        searchEngine1.add(banana);
+        searchEngine1.add(banana);
+
+        Searchable[] result = searchEngine1.search("Яблоко");
+
+        for (int i = 0; i < result.length; i++) {
+            if (result[i] == null) break;
+            System.out.println(result[i].getStringRepresentation());
+        }
     }
 }

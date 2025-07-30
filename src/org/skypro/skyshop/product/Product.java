@@ -3,7 +3,10 @@ package org.skypro.skyshop.product;
 public abstract class Product implements Searchable {
     private String name;
 
-    public Product(String name) {
+    public Product(String name) throws IllegalArgumentException, NullPointerException {
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("Поле Имя пустое");
+        }
         this.name = name;
     }
 

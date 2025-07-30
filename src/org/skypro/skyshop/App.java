@@ -56,5 +56,51 @@ public class App {
             if (result[i] == null) break;
             System.out.println(result[i].getStringRepresentation());
         }
+
+        try {
+            SimpleProduct potato = new SimpleProduct("  ", 12);
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex.toString());
+        }
+
+        try {
+            SimpleProduct potato = new SimpleProduct("Картофель", 0);
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex.toString());
+        }
+
+        try {
+            DiscountedProduct tomato = new DiscountedProduct("Помидор", 10, 101);
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex.toString());
+        }
+
+        try {
+            DiscountedProduct tomato = new DiscountedProduct("Помидор", 0, 50);
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex.toString());
+        }
+
+        try {
+            DiscountedProduct tomato = new DiscountedProduct(null, 5, 50);
+        } catch (IllegalArgumentException ex) {
+            System.out.println(ex.toString());
+        } catch (NullPointerException ex) {
+            System.out.println("Одно из полей пусто");
+        }
+
+        try {
+            Searchable result1 = searchEngine1.getBestSearch("слива");
+            System.out.println(result1.getStringRepresentation());
+        } catch (BestResultNotFound ex) {
+            System.out.println(ex.toString());
+        }
+
+        try {
+            Searchable result1 = searchEngine1.getBestSearch("а");
+            System.out.println(result1.getStringRepresentation());
+        } catch (BestResultNotFound ex) {
+            System.out.println(ex.toString());
+        }
     }
 }

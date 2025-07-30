@@ -73,12 +73,16 @@ public class App {
             DiscountedProduct tomato = new DiscountedProduct("Помидор", 10, 101);
         } catch (IllegalArgumentException ex) {
             System.out.println(ex.toString());
+        } catch (NullPointerException ex) {
+            System.out.println("Одно из полей пусто");
         }
 
         try {
             DiscountedProduct tomato = new DiscountedProduct("Помидор", 0, 50);
         } catch (IllegalArgumentException ex) {
             System.out.println(ex.toString());
+        } catch (NullPointerException ex) {
+            System.out.println("Одно из полей пусто");
         }
 
         try {

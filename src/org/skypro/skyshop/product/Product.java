@@ -1,20 +1,35 @@
 package org.skypro.skyshop.product;
 
-public class Product {
+public abstract class Product implements Searchable {
     private String name;
-    private int price;
 
-    public Product(String name, int price) {
+    public Product(String name) throws IllegalArgumentException, NullPointerException {
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("Поле Имя пустое");
+        }
         this.name = name;
-        this.price = price;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getPrice() {
-        return price;
+    public abstract int getPrice();
+
+    public abstract boolean isSpecial();
+
+    @Override
+    public String toString() {
+        return name;
     }
 
+    @Override
+    public String searchTerm() {
+        return name;
+    }
+
+    @Override
+    public String getContentName() {
+        return "PRODUCT";
+    }
 }

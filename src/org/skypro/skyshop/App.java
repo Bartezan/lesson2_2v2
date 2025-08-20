@@ -6,6 +6,7 @@ import org.skypro.skyshop.product.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class App {
@@ -54,14 +55,12 @@ public class App {
         searchEngine1.add(banana);
         searchEngine1.add(banana);
 
-        List<Searchable> result = searchEngine1.search("Яблоко");
+        Map<String, Searchable> result = searchEngine1.search("Яблоко");
         System.out.println("----------");
         if (result.isEmpty()) {
             System.out.println("Поиск результатов не дал");
         } else {
-            for (Searchable searchable : result) {
-                System.out.println(searchable.getStringRepresentation());
-            }
+            System.out.println(result);
         }
         System.out.println("----------");
         try {

@@ -4,10 +4,7 @@ package org.skypro.skyshop;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class App {
     public static void main(String[] args) {
@@ -55,7 +52,7 @@ public class App {
         searchEngine1.add(banana);
         searchEngine1.add(banana);
 
-        Map<String, Searchable> result = searchEngine1.search("Яблоко");
+        Set<Searchable> result = searchEngine1.search("Яблоко");
         System.out.println("----------");
         if (result.isEmpty()) {
             System.out.println("Поиск результатов не дал");

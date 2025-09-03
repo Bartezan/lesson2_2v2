@@ -2,10 +2,9 @@ package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class ProductBasket {
 
@@ -22,28 +21,35 @@ public class ProductBasket {
     }
 
     public int getBasketPrice() {
-        int sum = 0;
-        for (Map.Entry<String, List<Product>> i : products.entrySet()) {
-            for (int count = 0; count < i.getValue().size(); count++) {
-                sum = sum + i.getValue().get(count).getPrice();
-            }
-        }
-        return sum;
+        return products.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .mapToInt(Product::getPrice)
+                .sum();
+    }
+
+    private int getSpecialCount() {
+        return (int) products.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .filter(Product::isSpecial)
+                .count();
     }
 
     public void printBasket() {
         int specialCount = 0;
         if (!products.isEmpty()) {
-            for (Map.Entry<String, List<Product>> i : products.entrySet()) {
-                for (int count = 0; count < i.getValue().size(); count++) {
-                    System.out.println(i.getValue().get(count));
-                    if (i.getValue().get(count).isSpecial()) {
-                        specialCount++;
-                    }
-                }
-            }
+            products.values()
+                    .stream()
+                    .flatMap(Collection::stream)
+                    .forEach(new Consumer<Product>() {
+                        @Override
+                        public void accept(Product product) {
+                            System.out.println(product);
+                        }
+                    });
             System.out.println("Общая стоимость корзины: " + getBasketPrice());
-            System.out.println("Количество специальных товаров: " + specialCount);
+            System.out.println("Количество специальных товаров: " + getSpecialCount());
         } else {
             System.out.println("В корзине пусто");
         }
@@ -51,12 +57,15 @@ public class ProductBasket {
 
     public boolean findForName(String name) {
         boolean result = false;
-        for (Map.Entry<String, List<Product>> i : products.entrySet()) {
-            if (name.equals(i.getKey())) {
-                result = true;
-                break;
-            }
-        }
+        result = products.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .anyMatch(new Predicate<Product>() {
+                    @Override
+                    public boolean test(Product product) {
+                        return name.equals(product.getName());
+                    }
+                });
         return result;
     }
 
@@ -65,16 +74,14 @@ public class ProductBasket {
     }
 
     public List<Product> deleteByName(String name) {
-        List<Product> result = new ArrayList<>();
-        for (Map.Entry<String, List<Product>> i : products.entrySet()) {
-            if (name.equals(i.getKey())) {
-                for (int count = 0; count < i.getValue().size(); count++) {
-                    result.add(i.getValue().get(count));
-                }
-                products.remove(name);
-                break;
-            }
-        }
+        List<Product> result = products.values()
+                .stream()
+                .flatMap(Collection::stream)
+                .filter(product -> {
+                    return name.equals(product.getName());
+                })
+                .toList();
+        products.remove(name);
 
         return result;
     }
